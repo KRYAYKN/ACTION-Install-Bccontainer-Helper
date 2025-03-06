@@ -1,0 +1,16 @@
+name: Install BcContainerHelper
+description: Install the BcContainerHelper PowerShell module.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install BcContainerHelper
+      shell: pwsh
+      run: |
+        $module = Get-InstalledModule -Name bccontainerhelper -ErrorAction SilentlyContinue
+        if (-Not $module) {
+          Write-Host "BcContainerHelper not installed. Installing..."
+          Install-Module -Name bccontainerhelper -Force
+        } else {
+          Write-Host "BcContainerHelper is already installed: Version $($module.Version)"
+        }
